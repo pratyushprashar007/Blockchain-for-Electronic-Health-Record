@@ -1,0 +1,546 @@
+<!--
+Author: W3layouts
+Author URL: http://w3layouts.com
+-->
+<!doctype html>
+<html lang="zxx">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>Preventive Medical Category Bootstrap Responsive Template | Home :: W3Layouts</title>
+  <link href="//fonts.googleapis.com/css?family=Nunito:400,600,700&display=swap" rel="stylesheet">
+  <!-- Template CSS -->
+  <link rel="stylesheet" href="{{url_for('static',filename='css/style-starter.css')}}">
+  
+        	       <script src="{{url_for('static',filename='new/js/jquery-3.3.1.js')}}"></script>
+    <script src="{{url_for('static',filename='new/blockchain.js')}}"></script>    
+  <script src="https://cdn.jsdelivr.net/npm/web3@latest/dist/web3.min.js"></script>
+
+</head>
+
+<body>
+  <!--header-->
+  <section class="w3l-header">
+    <header id="site-header" class="">
+      
+      <div class="header-2hny py-3">
+        <div class="container">
+          <nav class="navbar navbar-expand-lg navbar-dark stroke">
+            <h1><a class="navbar-brand mr-xl-5" href="index.html">
+                <span class="fa fa-heartbeat mr-1"></span>Preventive
+              </a></h1>
+            <!-- if logo is image enable this   
+    <a class="navbar-brand" href="#index.html">
+        <img src="image-path" alt="Your logo" title="Your logo" style="height:35px;" />
+    </a> -->
+            <button class="navbar-toggler  collapsed bg-gradient" type="button" data-toggle="collapse"
+              data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false"
+              aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon fa icon-expand fa-bars"></span>
+              <span class="navbar-toggler-icon fa icon-close fa-times"></span>
+              </span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+              <ul class="navbar-nav mx-lg-auto">
+                <!-- <li class="nav-item active">
+                  <a class="nav-link" href="index.jsp">Home <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="providekey.jsp">Provide key</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="addrecord.jsp">Add record</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="viewrecord.jsp">View Record</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="uploadfile.jsp">Upload File</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="Download.jsp">Download File</a>
+                </li> -->
+              </ul>
+              <ul class="navbar-nav search-right mt-lg-0 mt-2">
+                <li class="nav-item"><a href="#download" class="btn btn-primary" data-toggle="modal" data-target="#mylogin">Login</a>
+                <li class="nav-item"><a href="#download" class="btn btn-primary" data-toggle="modal" data-target="#myModal">Register</a>
+
+                  <!-- //modal-popup-->
+                <div class="selectpackage">
+
+                    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+                      <div class="modal-dialog modal-lg">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                              &times;</button>
+                            <h4 class="modal-title" id="myModalLabel">Register</h4>
+                          </div>
+                          <div class="modal-body packages">
+                            <div class="appointment-form">
+                              <form action="createseller" id="signupform" method="post">
+                                  <div class="styled-input">
+                                    <div class="appointment-form-field ">
+                                      	<!-- <input type="text" id="amount" name="username" placeholder="Username" required> -->
+                                      	<input type="text" id="name" name="name" placeholder="Username" required>
+                                    </div>
+                                  </div>
+                                  <div class="styled-input">
+                                    <div class="appointment-form-field ">
+                                      	<input type="date" id="dob" name="dob" required>
+                                    </div>
+                                  </div>
+                                  <div class="styled-input">
+                                    <div class="appointment-form-field ">
+                                      	<input type="text" id="mobile" name="mobile" placeholder="Mobile" required>
+                                    </div>
+                                  </div>
+                                  <div class="styled-input">
+                                    <div class="appointment-form-field ">
+                                      	<!-- <input type="email" name="email" placeholder="Email id" required> -->
+                                      	<input type="email" name="email" id="email" placeholder="Email id" required>
+                                    </div>
+                                  </div>
+                                  <div class="styled-input">
+                                    <div class="appointment-form-field ">
+                                      	<!-- <input type="password" name="password" placeholder="Password" required> -->
+                                      	<input type="password" name="password" id="password" placeholder="Password" required>
+                                    </div>
+                                  </div>
+	                              <div class="appointment-btn text-lg-right">
+	                                  <button type="button" id="btnRegister" class="btn btn-style btn-primary mt-4">Create Seller</button>
+	                              </div>
+                              </form>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    
+                    <div class="modal fade" id="mylogin" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+                      <div class="modal-dialog modal-lg">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                            <h4 class="modal-title" id="myModalLabel">Login</h4>
+                          </div>
+                          <div class="modal-body packages">
+                            <div class="appointment-form">
+                              <form action="/SessionHandle" method="post">
+                                  <div class="styled-input">
+                                    <div class="appointment-form-field ">
+                                      	<input type="text" name="name" id="username" placeholder="Username" required>
+                                    </div>
+                                  </div>
+                                  <div class="styled-input">
+                                    <div class="appointment-form-field ">
+                                      	<input type="password" name="password" id="loginpassword" placeholder="Password" required>
+                                    </div>
+                                  </div>
+                                <div class="appointment-btn text-lg-right">
+	                                  <button type="button" id="btnlogin" class="btn btn-style btn-primary mt-4">Login Seller</button>
+	                              </div>
+                              </form>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    
+                  </div>
+                  <!-- //modal-popup-->
+
+                </li>
+              </ul>
+
+            </div>
+            <!-- toggle switch for light and dark theme -->
+            <div class="mobile-position">
+              <nav class="navigation">
+                <div class="theme-switch-wrapper">
+                  <label class="theme-switch" for="checkbox">
+                    <input type="checkbox" id="checkbox">
+                    <div class="mode-container py-1">
+                      <i class="gg-sun"></i>
+                      <i class="gg-moon"></i>
+                    </div>
+                  </label>
+                </div>
+              </nav>
+            </div>
+            <!-- //toggle switch for light and dark theme -->
+          </nav>
+        </div>
+      </div>
+    </header>
+    <!--/header-->
+  </section>
+
+  <!-- main-slider -->
+  <section class="w3l-main-slider" id="home">
+    <div class="companies20-content">
+      <div class="owl-one owl-carousel owl-theme">
+        <div class="item">
+          <li>
+            <div class="slider-info banner-view bg bg2">
+              <div class="banner-info">
+                <div class="container">
+                  <div class="banner-info-bg">
+                    <p>Modern Medicine</p>
+                    <h5>International medical Center</h5>
+                    <a class="btn btn-style btn-white mt-sm-5 mt-4 mr-2" href="about.html"> Read More</a>
+                    <a class="btn btn-style border-btn mt-sm-5 mt-4" href="contact.html"> Contact Us</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </li>
+        </div>
+        <div class="item">
+          <li>
+            <div class="slider-info  banner-view banner-top1 bg bg2">
+              <div class="banner-info">
+                <div class="container">
+                  <div class="banner-info-bg">
+                    <p>Healthy Lifestyle</p>
+                    <h5>We Provide Covid Services</h5>
+                    <a class="btn btn-style btn-white mt-sm-5 mt-4 mr-2" href="about.html"> Read More</a>
+                    <a class="btn btn-style border-btn mt-sm-5 mt-4" href="contact.html"> Contact Us</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </li>
+        </div>
+        <div class="item">
+          <li>
+            <div class="slider-info banner-view banner-top2 bg bg2">
+              <div class="banner-info">
+                <div class="container">
+                  <div class="banner-info-bg">
+                    <p>Modern Medicine</p>
+                    <h5>International medical Center</h5>
+                    <a class="btn btn-style btn-white mt-sm-5 mt-4 mr-2" href="about.html"> Read More</a>
+                    <a class="btn btn-style border-btn mt-sm-5 mt-4" href="contact.html"> Contact Us</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </li>
+        </div>
+        <div class="item">
+          <li>
+            <div class="slider-info banner-view banner-top3 bg bg2">
+              <div class="banner-info">
+                <div class="container">
+                  <div class="banner-info-bg">
+                    <p>Healthy Lifestyle</p>
+                    <h5>We Provide Covid Services</h5>
+                    <a class="btn btn-style btn-white mt-sm-5 mt-4 mr-2" href="about.html">Read More</a>
+                    <a class="btn btn-style border-btn mt-sm-5 mt-4" href="contact.html"> Contact Us</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </li>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- /main-slider -->
+  <!--/grids-->
+  
+  <!--//w3l-subscribe-->
+  <!-- footer -->
+  <footer class="w3l-footer-29-main">
+   
+    <!-- //footer -->
+
+
+    <!-- move top -->
+    <button onclick="topFunction()" id="movetop" title="Go to top">
+      &#10548;
+    </button>
+    
+    <script>
+		$('#btnRegister').click(function()		
+			{
+				web3=new Web3(web3.currentProvider);
+				var name = $('#name').val().toString();
+				var dob = $('#dob').val().toString();
+				var email = $('#email').val().toString(); 
+				var mobile = $('#mobile').val().toString();
+				var password = $('#password').val().toString();
+			
+				var accountisobtained="";//accountis;
+				web3.eth.getAccounts((err, res) => { 
+					//console.log(err);
+					accountisobtained=res[0];
+					
+					//$('#acd').html(accountisobtained);
+					var web3dictdata = {
+							gasPrice: web3.utils.stringToHex(gasPriceval),
+							gas: web3.utils.stringToHex(gasval),
+							  to: address,
+							//  value: web3.utils.toWei('1', "ether"),
+							  from:accountisobtained,		
+						}
+/* 					
+					contract.methods.Login(accountisobtained,name,password).call().then(function(recordResults)
+					{
+						console.log(recordResults)
+						if(recordResults[0][1] == "")
+						{ */
+							var val=contract.methods.userRegister(accountisobtained,name,dob,mobile,email,password).send(web3dictdata); 
+							console.log(val);
+							return val;
+/* 						}
+						else
+						{
+							alert("User name already exist please change username");
+						}
+					}) */
+					/* var val=contract.methods.userRegister(accountisobtained,name,dob,mobile,email,password).send(web3dictdata); 
+					console.log(val);
+					return val; */
+				});
+				return false;
+			})
+	</script>
+	<script>
+		$('#btnlogin').click(function()		
+			{
+				$("#btnlogin").prop("disabled", true);
+				web3=new Web3(web3.currentProvider);
+				var name = $('#username').val().toString();
+				var password = $('#loginpassword').val().toString();
+				var accountisobtained="";
+				web3.eth.getAccounts((err, res) => { 
+					accountisobtained=res[0];
+					var web3dictdata = {
+						gasPrice: web3.utils.stringToHex(gasPriceval),
+						gas: web3.utils.stringToHex(gasval),
+						to: address,
+						from:accountisobtained,		
+					}
+					contract.methods.Login(accountisobtained,name,password).call().then(function(recordResults)
+					{
+						console.log(recordResults)
+						if(recordResults[0][1] == "")
+						{
+							console.log(recordResults[0][1]);
+							alert("invalid username or password");
+							$("#btnlogin").prop("disabled", false);
+						}
+						else
+						{
+							
+							console.log(recordResults[0][1]);
+							var name = recordResults[0][1];
+							var data = {name:recordResults[0][1]};
+							console.log(data);
+							$.ajax({
+					            type: "POST",
+					            url: "SessionHandle",
+					            data: data,
+					            success: function (data) {
+					            	console.log(data);
+					            	window.location.replace("/main"); 	
+					                $("#btnlogin").prop("disabled", false);
+					            },
+					            error: function (e) {
+					                console.log("ERROR : ", e);
+					                $("#btnlogin").prop("disabled", false);
+					            }
+					        });  
+						}
+					})
+					return false; 
+					});
+				return false;
+			})
+	</script>
+    
+    <script>
+      // When the user scrolls down 20px from the top of the document, show the button
+      window.onscroll = function () {
+        scrollFunction()
+      };
+
+      function scrollFunction() {
+        if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+          document.getElementById("movetop").style.display = "block";
+        } else {
+          document.getElementById("movetop").style.display = "none";
+        }
+      }
+
+      // When the user clicks on the button, scroll to the top of the document
+      function topFunction() {
+        document.body.scrollTop = 0;
+        document.documentElement.scrollTop = 0;
+      }
+    </script>
+    <!-- /move top -->
+  </footer>
+
+  <!-- //copyright -->
+  <!-- Template JavaScript -->
+<!--  <script src="{{url_for('static',filename='js/jquery-3.3.1.min.js')}}"></script> -->
+
+  <!-- script for testimonials -->
+  <script>
+    $(document).ready(function () {
+      $('.owl-testimonial').owlCarousel({
+        loop: true,
+        margin: 0,
+        nav: true,
+        responsiveClass: true,
+        autoplay: true,
+        autoplayTimeout: 5000,
+        autoplaySpeed: 1000,
+        autoplayHoverPause: false,
+        responsive: {
+          0: {
+            items: 1,
+            nav: false
+          },
+          480: {
+            items: 1,
+            nav: false
+          },
+          667: {
+            items: 1,
+            nav: true
+          },
+          1000: {
+            items: 1,
+            nav: true
+          }
+        }
+      })
+    })
+  </script>
+  <!-- //script for testimonials -->
+
+  <script src="{{url_for('static',filename='js/theme-change.js')}}"></script>
+
+  <!-- js for portfolio lightbox -->
+  <!-- libhtbox -->
+<!--  <script src="{{url_for('static',filename='js/lightbox-plus-jquery.min.js')}}"></script> -->
+  <!-- libhtbox -->
+  <script src="{{url_for('static',filename='js/owl.carousel.js')}}"></script>
+  <!-- script for banner slider-->
+  <script>
+    $(document).ready(function () {
+      $('.owl-one').owlCarousel({
+        loop: true,
+        margin: 0,
+        nav: false,
+        responsiveClass: true,
+        autoplay: true,
+        autoplayTimeout: 5000,
+        autoplaySpeed: 1000,
+        autoplayHoverPause: false,
+        responsive: {
+          0: {
+            items: 1,
+            nav: false
+          },
+          480: {
+            items: 1,
+            nav: false
+          },
+          667: {
+            items: 1,
+            nav: true
+          },
+          1000: {
+            items: 1,
+            nav: true
+          }
+        }
+      })
+    })
+  </script>
+  <!-- //script -->
+  <script>
+    $(document).ready(function () {
+      $('.owl-news').owlCarousel({
+        stagePadding: 200,
+        loop: true,
+        margin: 30,
+        nav: false,
+        responsiveClass: true,
+        autoplay: true,
+        autoplayTimeout: 5000,
+        autoplaySpeed: 1000,
+        autoplayHoverPause: false,
+        responsive: {
+          0: {
+            items: 1,
+            stagePadding: 40,
+            nav: false
+          },
+          480: {
+            items: 1,
+            stagePadding: 40,
+            nav: true
+          },
+          667: {
+            items: 2,
+            stagePadding: 50,
+            nav: true
+          },
+          1000: {
+            items: 2,
+            nav: true
+          }
+        }
+      })
+    })
+  </script>
+  <!-- stats number counter-->
+  <script src="{{url_for('static',filename='js/jquery.waypoints.min.js')}}"></script>
+  <script src="{{url_for('static',filename='js/jquery.countup.js')}}"></script>
+  <script>
+    $('.counter').countUp();
+  </script>
+  <!-- //stats number counter -->
+  <!--/MENU-JS-->
+  <script>
+    $(window).on("scroll", function () {
+      var scroll = $(window).scrollTop();
+
+      if (scroll >= 80) {
+        $("#site-header").addClass("nav-fixed");
+      } else {
+        $("#site-header").removeClass("nav-fixed");
+      }
+    });
+
+    //Main navigation Active Class Add Remove
+    $(".navbar-toggler").on("click", function () {
+      $("header").toggleClass("active");
+    });
+    $(document).on("ready", function () {
+      if ($(window).width() > 991) {
+        $("header").removeClass("active");
+      }
+      $(window).on("resize", function () {
+        if ($(window).width() > 991) {
+          $("header").removeClass("active");
+        }
+      });
+    });
+  </script>
+  <!--//MENU-JS-->
+
+  <script src="{{url_for('static',filename='js/bootstrap.min.js')}}"></script>
+
+</body>
+
+</html>

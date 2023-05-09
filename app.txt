@@ -1,0 +1,170 @@
+from flask import Flask, flash, session, redirect
+from flask import render_template,request,send_file
+from flask_mysqldb import MySQL
+from werkzeug.utils import secure_filename
+import os
+import pathlib
+
+#Importing necessary modules
+from Crypto.Cipher import PKCS1_OAEP
+from Crypto.PublicKey import RSA
+from binascii import hexlify
+
+from cryptography.fernet import Fernet
+
+from flask import send_from_directory
+import base64
+
+from PIL import Image
+from base64 import decodestring
+import numpy as np
+
+app = Flask(__name__)
+
+UPLOAD_FOLDER = 'static/files/'
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+
+app.secret_key = 'any random string'
+
+app.config['MYSQL_HOST'] = 'localhost'
+app.config['MYSQL_USER'] = 'root'
+app.config['MYSQL_PASSWORD'] = 'root'
+app.config['MYSQL_DB'] = '032ehr'
+
+mysql = MySQL(app)
+
+@app.route('/')
+def index():
+    return render_template('index.html') 
+
+@app.route('/main')
+def main():
+    return render_template('index1.html') 
+
+@app.route('/logout')
+def logout():
+    session.pop('name',None)
+    return render_template('index.html') 
+
+@app.route('/SessionHandle',methods=['POST','GET'])
+def SessionHandle():
+    if request.method == "POST":
+        details = request.form
+        name = details['name']
+        session['name'] = name
+        strofuser = name
+        print (strofuser.encode('utf8', 'ignore'))
+        return strofuser
+    
+@app.route('/ProvideKey')
+def ProvideKey():
+    return render_template('providekey.html') 
+
+@app.route('/Addrecord')
+def Addrecord():
+    return render_template('addRecord.html')
+
+@app.route('/Viewrecord')
+def Viewrecord():
+    return render_template('viewRecord.html')  
+
+@app.route('/Uploadfile',methods=['POST','GET'])
+def Uploadfile():
+    if request.method == "POST":
+        import cv2
+        username = session.get("name")
+        f2= request.files['file']
+        print(f2)
+        filename_secure = secure_filename(f2.filename)
+        pathlib.Path(app.config['UPLOAD_FOLDER'], username).mkdir(exist_ok=True)
+        print("print saved")
+        f2.save(os.path.join(app.config['UPLOAD_FOLDER'], username, filename_secure))
+        filename1 =os.path.join(app.config['UPLOAD_FOLDER'], username, filename_secure)
+        
+        filename55 = filename_secure
+        
+        file = filename1
+        image = open(file, 'rb')
+        image_read = image.read()
+        image_64_encode = base64.encodebytes(image_read) 
+        
+        private_key = RSA.generate(1024)
+        
+        public_key = private_key.publickey()
+        print(type(private_key), type(public_key))
+        
+        private_pem = private_key.export_key().decode()
+        public_pem = public_key.export_key().decode()
+        # print(type(private_pem), type(public_pem))
+        
+        with open(filename1+'_private.pem', 'w') as pr:
+            pr.write(private_pem)
+        with open(filename1+'_public.pem', 'w') as pu:
+            pu.write(public_pem)      
+        
+        key = Fernet.generate_key()
+        f = Fernet(key)
+        token = f.encrypt(image_64_encode)
+        
+        with open(filename1+'_encryption.key', 'wb') as filekey:
+            filekey.write(key)
+        
+        d = f.decrypt(token)
+        
+        # c1 = private_key.decode("utf-8")
+        
+        # ListOfFile = {'a':filename55,'b':username,'c':filename1+'_private.pem',
+        #               'd':filename1+'_public.pem','e':filename1+'_encryption.key','f':"dkdifjrutmv95463"}
+        # return ListOfFile 
+    return render_template('uploadFile.html',data={})
+
+@app.route('/Download')
+def Download():
+    username = session.get("name")
+    print(username)
+    return render_template('download.html',username=username)
+
+@app.route('/Sharefile',methods=['POST','GET'])
+def Sharefile():
+    if request.method == "POST":
+        details = request.form        
+        filename5 = details['filename']
+        username55 = session.get("name")
+        data = {'a':filename5,'b':username55}
+        print(data)
+        cur = mysql.connection.cursor()
+        cur.execute("SELECT * from users")
+        rows = cur.fetchall()
+        return render_template('shareFile.html',data=data,rows=rows)
+    return render_template('shareFile.html')
+
+@app.route('/Receivedfiles',methods=['POST','GET'])
+def Receivedfiles():
+    username = session.get("name")
+    print(username)
+    return render_template('receivedfiles.html',username=username)
+
+@app.route('/DownloadFile',methods=['POST','GET'])
+def DownloadFile():
+    if request.method == "POST":
+        details = request.form        
+        filename55 = details['filename']
+        username = session.get("name")
+        filename1 =os.path.join(app.config['UPLOAD_FOLDER'], username, filename55)
+        return send_file(filename1,as_attachment=True)
+    return render_template('download.html',username=username) 
+
+@app.route('/DownloadFile1',methods=['POST','GET'])
+def DownloadFile1():
+    if request.method == "POST":
+        details = request.form        
+        filename55 = details['filename']
+        uploader = details['uploader']
+        print(uploader)
+        username = session.get("name")
+        filename1 =os.path.join(app.config['UPLOAD_FOLDER'], uploader, filename55)
+        return send_file(filename1,as_attachment=True)
+    return render_template('download.html',username=username) 
+
+if __name__ == "__main__":
+    app.run("0.0.0.0")
